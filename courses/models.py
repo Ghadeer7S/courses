@@ -43,8 +43,8 @@ class Script(models.Model):
     episode = models.ForeignKey(Episode, on_delete=models.CASCADE, related_name='script')
     speaker = models.CharField(max_length=255)
     text = models.TextField()
-    time_start = models.TimeField()
-    time_end = models.TimeField()
+    time_start = models.DurationField()
+    time_end = models.DurationField()
     
     def __str__(self):
         return f"{self.speaker} - {self.time_start}"

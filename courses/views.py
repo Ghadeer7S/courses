@@ -32,6 +32,12 @@ from .serializers import StudentSerializer, PodcastSerializer, EpisodeSerializer
 class PodcastViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = Podcast.objects.all()
     serializer_class = PodcastSerializer
+
+    @action(detail=False, methods=['get'])
+    def categories(self, request):
+        categories = Podcast.objects.values_list('category', flat=True).distinct()
+        categories = [c for c in categories if c]
+        return Response(categories)
     
 class EpisodeViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = EpisodeSerializer
